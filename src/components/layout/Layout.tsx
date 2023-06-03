@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className='bg-dark flex w-screen pr-10'>
       <Navigation />
-      <div className=' flex w-full flex-col '>
+      <div className=' flex w-full flex-col pb-10'>
         <HeaderComponent />
         {children}
       </div>
