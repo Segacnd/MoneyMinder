@@ -21,7 +21,7 @@ export default function HomePage() {
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
 
-      <section className='bg-dark h-screen w-full w-full'>Accaunt</section>
+      <section className='bg-dark h-full w-full '>Account</section>
     </Layout>
   );
 }
