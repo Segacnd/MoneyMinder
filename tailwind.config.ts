@@ -26,6 +26,7 @@ export default {
         dark: '#121E2C',
         black: '#061018',
         white: '#F0FDFB',
+        placeGray: '#9FA2A7',
       },
       keyframes: {
         flicker: {
