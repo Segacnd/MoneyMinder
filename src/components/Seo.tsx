@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Cash controller',
-  siteName: 'Cash controller',
+  title: 'Money Minder',
+  siteName: 'Money Minder',
   description: 'On this website you can ??? your money better and easies',
   url: '',
   type: 'website',

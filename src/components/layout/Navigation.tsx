@@ -12,10 +12,10 @@ const links = [
 export default function Navigation() {
   const location = useRouter();
   return (
-    <aside className='h-screen w-1/4 bg-black pl-10 pt-6 text-white'>
+    <aside className='h-screen w-1/4 min-w-[300px] bg-black pl-10 pt-6 text-white'>
       <div className='flex flex-col gap-20'>
         <UnstyledLink href='/' className='text-2xl font-light '>
-          Cash <span className='text-primary-300'>Controller</span>
+          Money <span className='text-primary-300'>Minder</span>
         </UnstyledLink>
         <nav>
           <ul className='flex flex-col gap-4 text-lg'>
@@ -26,7 +26,7 @@ export default function Navigation() {
                   location.asPath === href ? 'text-primary-400' : 'text-white'
                 }
               >
-                <UnstyledLink href={href} className='hover:text-primary-400'>
+                <UnstyledLink href={href} className='hover:text-primary-700'>
                   {label}
                 </UnstyledLink>
               </li>

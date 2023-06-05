@@ -1,10 +1,17 @@
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import * as React from 'react';
 
 import Button from '@/components/buttons/Button';
+import TextInput from '@/components/inputs/textInput';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
+import {
+  baseShowAnimation,
+  mediumSecondShowAnimation,
+  mediumShowAnimation,
+} from '@/animations/animations';
 import CashIcon from '@/assets/icons/cash';
 /**
  * SVGR Support
@@ -17,14 +24,19 @@ import mockImg from '@/assets/images/Foto4ka.jpg';
 // !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
 
 export default function HomePage() {
-  const currencyList = ['$', '₽', '€'];
+  // const currencyList = ['$', '₽', '€'];
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
 
       <section className=' flex h-full gap-10 pl-10'>
-        <div className='flex h-full w-[500px] flex-col items-center gap-1 rounded-2xl bg-black px-10 py-12 text-white'>
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          variants={mediumSecondShowAnimation}
+          className='flex h-full w-2/5 flex-col items-center gap-1 rounded-2xl bg-black px-10 py-12 text-white'
+        >
           <Image
             className='rounded-full'
             src={mockImg}
@@ -34,57 +46,54 @@ export default function HomePage() {
           />
           <p className='text-placeGray'>@sega</p>
           <p className='text-2xl'>Bergei Svinskii</p>
-          <form action='#' className='flex w-full flex-col'>
-            <input
-              type='text'
+          <form action='#' className='flex w-full flex-col gap-4'>
+            <TextInput placeholder='Enter your name' name='name' type='text' />
+            <TextInput
               placeholder='Enter your login'
-              className=' bg-dark my-2.5 h-10 w-full rounded-lg border-0 '
-            />
-            <input
+              name='login'
               type='text'
+            />
+            <TextInput
               placeholder='Enter your email'
-              className=' bg-dark my-2.5 h-10 w-full rounded-lg border-0 '
-            />
-            <input
+              name='email'
               type='text'
+            />
+            <TextInput
               placeholder='Enter your password'
-              className=' bg-dark my-2.5 h-10 w-full rounded-lg border-0 '
-            />
-            <input
+              name='password'
               type='text'
-              placeholder='Enter your name'
-              className=' bg-dark my-2.5 h-10 w-full rounded-lg border-0 '
             />
           </form>
           <Button className='bg-primary-500 mt-auto flex w-full items-center justify-center'>
             save changes
           </Button>
-        </div>
+        </motion.div>
         <div className='flex h-full w-full flex-col gap-10'>
-          <div className='flex h-[120px] w-full items-center gap-4 rounded-2xl bg-black p-6 text-white'>
-            <input
+          <motion.div
+            initial='hidden'
+            whileInView='visible'
+            variants={baseShowAnimation}
+            className='flex h-[120px] w-full items-center gap-4 rounded-2xl bg-black p-6 text-white'
+          >
+            <TextInput
+              type='number'
               placeholder='Base currency:'
-              list='currency'
-              className='bg-dark h-full w-full rounded-lg border-0 pl-4'
+              name='currency'
             />
-            <datalist id='currency'>
-              {currencyList.map((el) => (
-                <option key={el}>{el}</option>
-              ))}
-            </datalist>
-            <input
-              type='text'
-              placeholder='Daily limit:'
-              className='bg-dark h-full w-full rounded-lg border-0 '
+            <TextInput type='number' placeholder='Daily limit:' name='limit' />
+            <TextInput
+              type='number'
+              placeholder='Save each month:'
+              name='saved'
             />
-            <input
-              type='text'
-              placeholder='save each month:'
-              className='bg-dark h-full w-full rounded-lg border-0 '
-            />
-          </div>
+          </motion.div>
           <div className='flex gap-10'>
-            <div className='text-placeGray flex h-[100px] w-1/2 items-center justify-between rounded-lg bg-black px-10'>
+            <motion.div
+              initial='hidden'
+              whileInView='visible'
+              variants={mediumShowAnimation}
+              className='text-placeGray flex h-[100px] w-1/2 items-center justify-between rounded-lg bg-black px-10'
+            >
               <p>
                 Money to paycheck: <br />{' '}
                 <span className='text-white'>300$</span>
@@ -92,17 +101,27 @@ export default function HomePage() {
               <div className='bg-dark flex aspect-square h-14 items-center justify-center rounded-full '>
                 <CashIcon />
               </div>
-            </div>
-            <div className='text-placeGray flex h-[100px] w-1/2 items-center justify-between rounded-lg bg-black px-10'>
+            </motion.div>
+            <motion.div
+              initial='hidden'
+              whileInView='visible'
+              variants={mediumSecondShowAnimation}
+              className='text-placeGray flex h-[100px] w-1/2 items-center justify-between rounded-lg bg-black px-10'
+            >
               <p>
                 Saved money: <br /> <span className='text-white'>1500$</span>
               </p>
               <div className='bg-dark flex aspect-square h-14 items-center justify-center rounded-full '>
                 <CashIcon />
               </div>
-            </div>
+            </motion.div>
           </div>
-          <div className='h-full w-full rounded-2xl bg-black'></div>
+          <motion.div
+            initial='hidden'
+            whileInView='visible'
+            variants={baseShowAnimation}
+            className='h-full w-full rounded-2xl bg-black'
+          ></motion.div>
         </div>
       </section>
     </Layout>

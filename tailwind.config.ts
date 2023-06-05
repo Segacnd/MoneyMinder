@@ -24,6 +24,7 @@ export default {
           950: 'var(--tw-color-primary-950)',
         },
         dark: '#121E2C',
+        subDark: '#0B131E',
         black: '#061018',
         white: '#F0FDFB',
         placeGray: '#9FA2A7',
