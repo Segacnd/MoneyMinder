@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useReducer } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-const store = configureStore({
+
+import { validationToastReducer } from '@/redux/slices/validationToastSlice';
+export const store = configureStore({
   reducer: {
-    useReducer,
+    validationToastReducer,
   },
 });
 

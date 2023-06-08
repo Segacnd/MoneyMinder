@@ -3,7 +3,7 @@ import Image from 'next/image';
 import * as React from 'react';
 
 import Button from '@/components/buttons/Button';
-import TextInput from '@/components/inputs/textInput';
+import RegistrationPage from '@/components/forms/registration';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
@@ -29,7 +29,7 @@ export default function HomePage() {
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
-
+      <RegistrationPage />
       <section className=' flex h-full gap-10 pl-10'>
         <motion.div
           initial='hidden'
@@ -46,24 +46,7 @@ export default function HomePage() {
           />
           <p className='text-placeGray'>@sega</p>
           <p className='text-2xl'>Bergei Svinskii</p>
-          <form action='#' className='flex w-full flex-col gap-4'>
-            <TextInput placeholder='Enter your name' name='name' type='text' />
-            <TextInput
-              placeholder='Enter your login'
-              name='login'
-              type='text'
-            />
-            <TextInput
-              placeholder='Enter your email'
-              name='email'
-              type='text'
-            />
-            <TextInput
-              placeholder='Enter your password'
-              name='password'
-              type='text'
-            />
-          </form>
+          <form action='#' className='flex w-full flex-col gap-4'></form>
           <Button className='bg-primary-500 mt-auto flex w-full items-center justify-center'>
             save changes
           </Button>
@@ -74,19 +57,7 @@ export default function HomePage() {
             whileInView='visible'
             variants={baseShowAnimation}
             className='flex h-[120px] w-full items-center gap-4 rounded-2xl bg-black p-6 text-white'
-          >
-            <TextInput
-              type='number'
-              placeholder='Base currency:'
-              name='currency'
-            />
-            <TextInput type='number' placeholder='Daily limit:' name='limit' />
-            <TextInput
-              type='number'
-              placeholder='Save each month:'
-              name='saved'
-            />
-          </motion.div>
+          ></motion.div>
           <div className='flex gap-10'>
             <motion.div
               initial='hidden'

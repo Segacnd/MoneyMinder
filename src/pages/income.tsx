@@ -4,7 +4,6 @@ import * as React from 'react';
 import Button from '@/components/buttons/Button';
 import TextButton from '@/components/buttons/TextButton';
 import Layout from '@/components/layout/Layout';
-import IncomePopupPage from '@/components/popup/incomePopup';
 import Seo from '@/components/Seo';
 
 import {
@@ -19,7 +18,7 @@ export default function IncomePage() {
         templateTitle='Components'
         description='Pre-built components with awesome default'
       />
-      <IncomePopupPage />
+      {/* <IncomePopupPage /> */}
 
       <main className='bg-dark flex h-full w-full justify-between gap-10 pl-10 text-white'>
         <motion.div
