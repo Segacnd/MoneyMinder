@@ -28,6 +28,8 @@ export default {
         black: '#061018',
         white: '#F0FDFB',
         placeGray: '#9FA2A7',
+        errorClr: '#ff3333',
+        successClr: '#198754',
       },
       keyframes: {
         flicker: {

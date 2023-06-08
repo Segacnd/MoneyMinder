@@ -42,3 +42,13 @@ export const mediumSecondShowAnimation = {
     },
   },
 };
+
+export const supportToastAnimation = {
+  show: { right: 0, opacity: 1 },
+  hide: { right: -400, opacity: 0 },
+};
+
+export const toastTransition = {
+  ease: 'linear',
+  duration: 0.5,
+};
