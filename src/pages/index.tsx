@@ -3,7 +3,7 @@ import Image from 'next/image';
 import * as React from 'react';
 
 import Button from '@/components/buttons/Button';
-import RegistrationPage from '@/components/forms/registration';
+import SelectedCurrency from '@/components/forms/selectedCurrency';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
@@ -24,12 +24,11 @@ import mockImg from '@/assets/images/Foto4ka.jpg';
 // !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
 
 export default function HomePage() {
-  // const currencyList = ['$', '₽', '€'];
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
-      <RegistrationPage />
+      {/* <Registration /> */}
       <section className=' flex h-full gap-10 pl-10'>
         <motion.div
           initial='hidden'
@@ -57,7 +56,9 @@ export default function HomePage() {
             whileInView='visible'
             variants={baseShowAnimation}
             className='flex h-[120px] w-full items-center gap-4 rounded-2xl bg-black p-6 text-white'
-          ></motion.div>
+          >
+            <SelectedCurrency />
+          </motion.div>
           <div className='flex gap-10'>
             <motion.div
               initial='hidden'

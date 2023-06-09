@@ -7,11 +7,13 @@ export interface IInputProps {
   name: string;
   type: string;
   placeholder: string;
+  value?: string;
   errors?: string[];
   errorsTemplate?: string[];
   isClear: boolean;
   onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+  isInputActiveCB?: (value: boolean) => void;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
@@ -19,6 +21,7 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
     const [isInputActive, setIsInputActive] = useState(false);
     const dispatch = useAppDispatch();
     const {
+      value,
       errors,
       type,
       onFocus,
@@ -27,12 +30,20 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       name,
       placeholder,
       isClear,
+      isInputActiveCB,
       ...otherprops
     } = props;
 
-    const placeholderState = isClear
-      ? 'top-[-8px] text-xs left-[2px]'
-      : 'left-[10px] top-[8px]';
+    useEffect(() => {
+      if (isInputActiveCB) {
+        isInputActiveCB(isInputActive);
+      }
+    }, [isInputActiveCB, isInputActive]);
+
+    const placeholderState =
+      isClear || value?.length
+        ? 'top-[-8px] text-xs left-[2px]'
+        : 'left-[10px] top-[8px]';
 
     const handleOnBlur = (e: FocusEvent<HTMLInputElement>) => {
       setIsInputActive(false);
@@ -71,6 +82,8 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       <>
         <div className='bg-dark relative h-[40px] min-w-[200px] rounded-lg'>
           <input
+            value={value}
+            autoComplete='off'
             type={type}
             className='bg-dark peer h-full w-full  rounded-lg border-0 border-transparent focus:border-transparent focus:ring-0'
             ref={ref}
