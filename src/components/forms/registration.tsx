@@ -21,7 +21,7 @@ interface AuthForm {
   lastName: string;
 }
 
-export default function RegistrationPage() {
+export default function Registration() {
   const { handleSubmit, control, watch, formState } = useForm<AuthForm>({
     mode: 'onChange',
     resolver: yupResolver(registrationSchema),
