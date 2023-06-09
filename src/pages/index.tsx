@@ -3,8 +3,8 @@ import Image from 'next/image';
 import * as React from 'react';
 
 import Button from '@/components/buttons/Button';
-import SelectedCurrency from '@/components/forms/selectedCurrency';
 import Layout from '@/components/layout/Layout';
+import SelectCurrency from '@/components/selectCurrency';
 import Seo from '@/components/Seo';
 
 import {
@@ -21,9 +21,11 @@ import CashIcon from '@/assets/icons/cash';
  * @see https://stackoverflow.com/questions/68103844/how-to-override-next-js-svg-module-declaration
  */
 import mockImg from '@/assets/images/Foto4ka.jpg';
+import { useAppSelector } from '@/redux/store';
 // !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
 
 export default function HomePage() {
+  const { currency } = useAppSelector((state) => state.userReducer);
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
@@ -57,7 +59,7 @@ export default function HomePage() {
             variants={baseShowAnimation}
             className='flex h-[120px] w-full items-center gap-4 rounded-2xl bg-black p-6 text-white'
           >
-            <SelectedCurrency />
+            <SelectCurrency />
           </motion.div>
           <div className='flex gap-10'>
             <motion.div
@@ -68,7 +70,7 @@ export default function HomePage() {
             >
               <p>
                 Money to paycheck: <br />{' '}
-                <span className='text-white'>300$</span>
+                <span className='text-white'>300{currency}</span>
               </p>
               <div className='bg-dark flex aspect-square h-14 items-center justify-center rounded-full '>
                 <CashIcon />
@@ -81,7 +83,8 @@ export default function HomePage() {
               className='text-placeGray flex h-[100px] w-1/2 items-center justify-between rounded-lg bg-black px-10'
             >
               <p>
-                Saved money: <br /> <span className='text-white'>1500$</span>
+                Saved money: <br />
+                <span className='text-white'>1500{currency}</span>
               </p>
               <div className='bg-dark flex aspect-square h-14 items-center justify-center rounded-full '>
                 <CashIcon />

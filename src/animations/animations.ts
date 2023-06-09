@@ -52,3 +52,12 @@ export const toastTransition = {
   ease: 'linear',
   duration: 0.5,
 };
+
+export const arrowRotateAnimation = {
+  up: { rotate: 180 },
+  down: { rotate: 360 },
+};
+export const arrowTransition = {
+  ease: 'easeInOut',
+  duration: 0.7,
+};
