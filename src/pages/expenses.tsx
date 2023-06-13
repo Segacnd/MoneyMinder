@@ -1,18 +1,33 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
+import { useForm } from 'react-hook-form';
 
 import Button from '@/components/buttons/Button';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
 import {
+  arrowRotateAnimation,
+  arrowTransition,
   baseShowAnimation,
+  incomeAnimation,
+  incomeTransition,
   mediumSecondShowAnimation,
 } from '@/animations/animations';
+import ArrowDown from '@/assets/icons/arrowDown';
 import DeleteIcon from '@/assets/icons/delete';
 import ListIcon from '@/assets/icons/list';
+import { expensesCategoryList } from '@/constants';
 
 export default function ExpensesPage() {
+  const [lala, setLala] = React.useState('category');
+  const [isOpen, setIsOpen] = React.useState(false);
+  const { register, watch } = useForm({
+    mode: 'onChange',
+    criteriaMode: 'all',
+  });
+
+  const testWatch = watch('test');
   return (
     <Layout>
       <Seo templateTitle='Expenses' />
@@ -78,7 +93,63 @@ export default function ExpensesPage() {
           whileInView='visible'
           variants={baseShowAnimation}
           className='h-full w-[65%] rounded-2xl bg-black p-6'
-        ></motion.div>
+        >
+          <form>
+            <h2>Radio buttons test</h2>
+            <button
+              type='button'
+              onClick={() => {
+                setIsOpen((prev) => !prev);
+              }}
+              className='bg-dark flex flex w-[130px] items-center justify-between rounded px-2 py-2'
+            >
+              <div>{lala}</div>
+              <motion.div
+                animate={isOpen ? 'up' : 'down'}
+                transition={arrowTransition}
+                variants={arrowRotateAnimation}
+              >
+                <ArrowDown />
+              </motion.div>
+            </button>
+            <motion.div
+              initial='hidden'
+              whileInView='visible'
+              variants={incomeAnimation}
+              animate={isOpen ? 'show' : 'hide'}
+              transition={incomeTransition}
+              className='mt-4 flex flex-wrap gap-2'
+            >
+              {expensesCategoryList.map((el) => (
+                <label
+                  onClick={() => {
+                    setLala(el.category);
+                    setIsOpen(false);
+                  }}
+                  className={`${
+                    testWatch === el.category
+                      ? 'hidden'
+                      : 'text-primary-50 bg-dark flex h-[90px] w-[90px] flex-col-reverse items-center justify-center rounded '
+                  }`}
+                  key={el.category}
+                  htmlFor={el.category}
+                >
+                  <input
+                    className='hidden'
+                    {...register('test')}
+                    type='radio'
+                    name='test'
+                    value={el.category}
+                    id={el.category}
+                  />
+                  {el.category}
+                  {el.label()}
+                </label>
+              ))}
+            </motion.div>
+            dsfsadfasdf
+          </form>
+        </motion.div>
       </section>
     </Layout>
   );

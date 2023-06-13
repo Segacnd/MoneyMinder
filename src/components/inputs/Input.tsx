@@ -4,6 +4,7 @@ import { validationToastActions } from '@/redux/slices/validationToastSlice';
 import { useAppDispatch } from '@/redux/store';
 
 export interface IInputProps {
+  view?: string;
   name: string;
   type: string;
   placeholder: string;
@@ -21,7 +22,7 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
     const [isInputActive, setIsInputActive] = useState(false);
     const dispatch = useAppDispatch();
     const {
-      value,
+      view,
       errors,
       type,
       onFocus,
@@ -40,10 +41,9 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       }
     }, [isInputActiveCB, isInputActive]);
 
-    const placeholderState =
-      isClear || value?.length
-        ? 'top-[-8px] text-xs left-[2px]'
-        : 'left-[10px] top-[8px]';
+    const placeholderState = isClear
+      ? 'top-[-8px] text-xs left-[2px]'
+      : 'left-[10px] top-[8px]';
 
     const handleOnBlur = (e: FocusEvent<HTMLInputElement>) => {
       setIsInputActive(false);
@@ -80,12 +80,15 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
 
     return (
       <>
-        <div className='bg-dark relative h-[40px] min-w-[200px] rounded-lg'>
+        <div
+          className={`${
+            view === 'secondary' ? 'bg-subDark' : 'bg-dark'
+          } relative h-[40px] min-w-[70px] rounded-lg`}
+        >
           <input
-            value={value}
             autoComplete='off'
             type={type}
-            className='bg-dark peer h-full w-full  rounded-lg border-0 border-transparent focus:border-transparent focus:ring-0'
+            className='peer h-full w-full rounded-lg  border-0 border-transparent bg-transparent focus:border-transparent focus:ring-0'
             ref={ref}
             onFocus={handleOnFocus}
             onBlur={handleOnBlur}
