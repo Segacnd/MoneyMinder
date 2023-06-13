@@ -94,7 +94,7 @@
 }
 
 @layer utilities {
-  .animated-underline {
+  . .animated-underline {
     background-image: linear-gradient(#33333300, #33333300),
       linear-gradient(
         to right,

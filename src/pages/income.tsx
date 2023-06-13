@@ -3,15 +3,22 @@ import * as React from 'react';
 
 import Button from '@/components/buttons/Button';
 import TextButton from '@/components/buttons/TextButton';
+import AddIncome from '@/components/forms/addIncome';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
 import {
   baseShowAnimation,
+  incomeAnimation,
+  incomeTransition,
   mediumSecondShowAnimation,
 } from '@/animations/animations';
+import { useAppSelector } from '@/redux/store';
 
 export default function IncomePage() {
+  const { incomes } = useAppSelector((state) => state.userReducer);
+  const [isAddIncomeFormOpen, setIsAddIncomeFormOpen] = React.useState(false);
+
   return (
     <Layout>
       <Seo
@@ -19,6 +26,14 @@ export default function IncomePage() {
         description='Pre-built components with awesome default'
       />
       {/* <IncomePopupPage /> */}
+      {/* <motion.div
+        variants={incomeAnimation}
+        animate={isAddIncomeFormOpen ? 'show' : 'hide'}
+        transition={toastTransition}
+        className='shadow-primary-200 absolute left-[40%] top-[-300px] w-fit  rounded-b-lg bg-black px-6 py-4 text-white shadow-sm'
+      >
+        <AddIncome />
+      </motion.div> */}
 
       <main className='bg-dark flex h-full w-full justify-between gap-10 pl-10 text-white'>
         <motion.div
@@ -30,11 +45,13 @@ export default function IncomePage() {
           <h2>Incomes</h2>
           <div className='my-4 flex justify-between'>
             <TextButton className='text-white'>Sort by latest</TextButton>
-            <Button>Add income</Button>
+            <Button onClick={() => setIsAddIncomeFormOpen((prev) => !prev)}>
+              Add income
+            </Button>
           </div>
           <table
             align='left'
-            className='w-full overflow-hidden rounded-lg text-left '
+            className='mb-4 w-full overflow-hidden rounded-lg text-left'
           >
             <thead className='bg-dark'>
               <tr>
@@ -45,32 +62,24 @@ export default function IncomePage() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className='p-6'>My UX/UI job for Techwings</td>
-                <td>$</td>
-                <td>08/10/23</td>
-                <td>5000</td>
-              </tr>
-              <tr className='bg-subDark'>
-                <td className='p-6'>My UX/UI job for Techwings</td>
-                <td>$</td>
-                <td>08/10/23</td>
-                <td>5000</td>
-              </tr>
-              <tr>
-                <td className='p-6'>My UX/UI job for Techwings</td>
-                <td>$</td>
-                <td>08/10/23</td>
-                <td>5000</td>
-              </tr>
-              <tr className='bg-subDark'>
-                <td className='p-6'>My UX/UI job for Techwings</td>
-                <td>$</td>
-                <td>08/10/23</td>
-                <td>5000</td>
-              </tr>
+              {incomes.map((el) => (
+                <tr className='even:bg-subDark' key={el.jobTitle}>
+                  <td className='p-6 '>{el.jobTitle}</td>
+                  <td>{el.currency}</td>
+                  <td>{el.incomeDate}</td>
+                  <td>{el.ammount}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
+          <motion.div
+            variants={incomeAnimation}
+            animate={isAddIncomeFormOpen ? 'show' : 'hide'}
+            transition={incomeTransition}
+            className='rounded-b-lg text-white'
+          >
+            <AddIncome />
+          </motion.div>
         </motion.div>
         <motion.div
           initial='hidden'

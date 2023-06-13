@@ -61,3 +61,13 @@ export const arrowTransition = {
   ease: 'easeInOut',
   duration: 0.7,
 };
+
+export const incomeAnimation = {
+  show: { scale: 1 },
+  hide: { scale: 0, height: 0, top: 0, left: -70 },
+};
+export const incomeTransition = {
+  ease: 'anticipate',
+  type: 'spring',
+  duration: 0.5,
+};

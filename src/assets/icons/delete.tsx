@@ -11,8 +11,8 @@ export default function DeleteIcon() {
         xmlns='http://www.w3.org/2000/svg'
       >
         <path
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M10.167 5H1.833C1.37295 5 1 5.37295 1 5.833V12.5C1 13.8807 2.11929 15 3.5 15H8.5C9.16304 15 9.79893 14.7366 10.2678 14.2678C10.7366 13.7989 11 13.163 11 12.5V5.833C11 5.37295 10.6271 5 10.167 5Z'
           stroke='#14B8B8'
           strokeWidth='1.5'

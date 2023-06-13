@@ -38,3 +38,6 @@ export const passwordErrorsTemplate = [
 ];
 export const emailTemplate = ['Incorrect email'];
 export const nameTemplate = ['Should contain latin letters'];
+export const dailyLimitTemplate = [
+  'For add dailly limit, you need to be shure that you add at least one income',
+];
