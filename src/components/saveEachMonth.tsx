@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 
 import { Input } from '@/components/inputs/Input';
-import { SelectInput } from '@/components/inputs/selectInput';
+import { Select } from '@/components/inputs/Select';
 
 import { currencySymbolsList } from '@/constants';
 import { userActions } from '@/redux/slices/userSlice';
@@ -15,11 +15,8 @@ type SaveEachMonth = {
 
 export default function SaveEachMonth() {
   const dispatch = useAppDispatch();
-  const [choosenCurrency, setChoosenCurrency] = React.useState(
-    currencySymbolsList[1]
-  );
 
-  const { handleSubmit, control, watch } = useForm<SaveEachMonth>({
+  const { handleSubmit, register, control, watch } = useForm<FieldValues>({
     mode: 'onChange',
     criteriaMode: 'all',
   });
@@ -27,48 +24,55 @@ export default function SaveEachMonth() {
   const saveEachValue = watch('saveEachMonth');
   const saveEachMonthCurrency = watch('saveEachMonthCurrency');
 
-  const handleSave = (data: FieldValues) => {
-    // console.log(`${data.saveEachMonth} ${choosenCurrency}`)
-    dispatch(
-      userActions.setSaveEachMonth(`${data.saveEachMonth} ${choosenCurrency}`)
-    );
-  };
+  const handleSave = React.useCallback(
+    (data: FieldValues) => {
+      dispatch(
+        userActions.setSaveEachMonth(
+          `${data.saveEachMonth} ${data.saveEachMonthCurrency}`
+        )
+      );
+    },
+    [dispatch]
+  );
+
+  React.useEffect(() => {
+    if (saveEachValue && saveEachMonthCurrency) {
+      handleSave({
+        saveEachMonth: saveEachValue,
+        saveEachMonthCurrency: saveEachMonthCurrency,
+      });
+    }
+  }, [saveEachValue, saveEachMonthCurrency, handleSave]);
 
   return (
-    <div className='relative w-full'>
-      <form autoComplete='off' onSubmit={handleSubmit(handleSave)}>
-        <Controller
-          defaultValue=''
-          name='saveEachMonth'
-          control={control}
-          render={({ field }) => (
-            <Input
-              type='text'
-              placeholder='Save each month:'
-              isClear={!!saveEachValue?.length}
-              {...field}
-            />
-          )}
-        />
-        <div className='border-placeGray absolute right-0 top-0 w-[70px] border-l-[1px]'>
-          <Controller
-            name='saveEachMonthCurrency'
-            control={control}
-            render={({ field: { onChange } }) => (
-              <SelectInput
-                name='saveEachMonthCurrency'
-                isClear={!!saveEachMonthCurrency?.length}
-                list={currencySymbolsList}
-                placeholder=''
-                value={choosenCurrency}
-                clickHandler={(value) => {
-                  onChange(setChoosenCurrency(value));
-                }}
-              />
-            )}
+    <form
+      autoComplete='off'
+      onSubmit={handleSubmit(handleSave)}
+      className='bg-dark relative flex w-full rounded'
+    >
+      <Controller
+        defaultValue=''
+        name='saveEachMonth'
+        control={control}
+        render={({ field }) => (
+          <Input
+            type='text'
+            placeholder='Save each month:'
+            isClear={!!saveEachValue?.length}
+            {...field}
           />
-        </div>
-      </form>
-    </div>
+        )}
+      />
+
+      <div className='flex-1'>
+        <Select
+          list={currencySymbolsList}
+          placeholder=''
+          name='saveEachMonthCurrency'
+          register={register}
+          defaultValue={currencySymbolsList[1]}
+        />
+      </div>
+    </form>
   );
 }

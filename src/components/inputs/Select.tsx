@@ -11,24 +11,27 @@ import {
 import ArrowDown from '@/assets/icons/arrowDown';
 
 type SelectProps = {
+  disabled?: boolean;
   placeholder: string;
   list: string[];
   name: string;
   register: UseFormRegister<FieldValues>;
+  defaultValue?: string;
 };
 
 export const Select = (props: SelectProps) => {
-  const { list, register, placeholder } = props;
-  const [value, setValue] = React.useState('');
+  const { list, register, placeholder, defaultValue, name } = props;
+  const [value, setValue] = React.useState(defaultValue || '');
   const [isOpen, setIsOpen] = React.useState(false);
+
   return (
-    <div className='relative text-white'>
+    <div className='relative w-full text-white '>
       <button
         type='button'
         onClick={() => {
           setIsOpen((prev) => !prev);
         }}
-        className='bg-dark flex flex h-10 min-w-[160px] items-center justify-between gap-10 rounded px-2 py-4'
+        className={`bg-dark flex flex h-10 w-full items-center justify-between gap-4 rounded px-2 py-4 `}
       >
         <div
           className={`${
@@ -54,7 +57,7 @@ export const Select = (props: SelectProps) => {
         variants={incomeAnimation}
         animate={isOpen ? 'show' : 'hide'}
         transition={incomeTransition}
-        className='absolute bottom-[-60px] left-0 mt-4 flex flex-wrap gap-2'
+        className='absolute left-0 top-[100%] z-40 mt-4 flex w-full flex-wrap gap-2'
       >
         {list.map((el) => (
           <label
@@ -62,21 +65,17 @@ export const Select = (props: SelectProps) => {
               setValue(el);
               setIsOpen(false);
             }}
-            className={`${
-              value === el
-                ? 'hidden'
-                : 'text-primary-50 bg-dark hover:text-primary-400 hover:border-primary-400 flex h-[50px] w-[90px] cursor-pointer flex-col items-center justify-center rounded hover:border-[1px] '
-            }`}
-            key={el}
-            htmlFor={el}
+            className='text-primary-50 bg-dark hover:text-primary-400 hover:border-primary-400 flex h-[50px] w-[90px] cursor-pointer flex-col items-center justify-center rounded hover:border-[1px] '
+            key={`${el} ${name}`}
+            htmlFor={`${el}${name}`}
           >
             <input
               className='hidden'
-              {...register('test')}
+              {...register(name)}
               type='radio'
-              name='test'
+              name={name}
               value={el}
-              id={el}
+              id={`${el}${name}`}
             />
             {el}
           </label>

@@ -1,41 +1,43 @@
 import * as React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
-import { SelectInput } from '@/components/inputs/selectInput';
+import { Select } from '@/components/inputs/Select';
 
 import { currencySymbolsList } from '@/constants';
 import { userActions } from '@/redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 
 export default function SelectCurrency() {
+  const { currency } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
 
-  const { control } = useForm({
+  const { register, handleSubmit, watch } = useForm<FieldValues>({
     mode: 'onChange',
     criteriaMode: 'all',
   });
 
-  const { currency } = useAppSelector((state) => state.userReducer);
+  const baseCurrencyValue = watch('baseCurrency');
+  const handleSave = React.useCallback(
+    (data: FieldValues) => {
+      dispatch(userActions.changeCurrency(data.baseCurrency));
+    },
+    [dispatch]
+  );
 
+  React.useEffect(() => {
+    if (baseCurrencyValue?.length) {
+      handleSave({ baseCurrency: baseCurrencyValue });
+    }
+  }, [baseCurrencyValue, handleSave]);
   return (
-    <div className='w-full'>
-      <form>
-        <Controller
-          defaultValue={currency}
+    <div className='relative w-full'>
+      <form onSubmit={handleSubmit(handleSave)}>
+        <Select
+          list={currencySymbolsList}
+          placeholder='Base currency:'
           name='baseCurrency'
-          control={control}
-          render={({ field: { onChange } }) => (
-            <SelectInput
-              name='baseCurrency'
-              isClear={!!currency?.length}
-              list={currencySymbolsList}
-              placeholder='Base currency:'
-              clickHandler={(value) => {
-                onChange(dispatch(userActions.changeCurrency(value)));
-              }}
-              value={currency}
-            />
-          )}
+          register={register}
+          defaultValue={currency}
         />
       </form>
     </div>

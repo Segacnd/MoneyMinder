@@ -117,3 +117,19 @@
     background-size: 0 2px, 100% 2px;
   }
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #9fa2a7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #121e2c;
+}
+
+::-webkit-scrollbar-thumb:hover {
+}

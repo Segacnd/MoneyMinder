@@ -33,3 +33,13 @@ export const currencySymbolsList: string[] = [];
 currencyList.forEach((el) => {
   currencySymbolsList.push(el.symbol);
 });
+/* eslint-disable-next-line */
+export const generateNewId = (array: any[]): number => {
+  if (!array.length) {
+    return 0;
+  }
+
+  const res = array.map((el) => el.id);
+
+  return Math.max(...res) + 1;
+};

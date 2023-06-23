@@ -4,6 +4,7 @@ import * as React from 'react';
 import Button from '@/components/buttons/Button';
 import TextButton from '@/components/buttons/TextButton';
 import AddIncome from '@/components/forms/addIncome';
+import IncomeRow from '@/components/incomeRow';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
@@ -19,28 +20,23 @@ export default function IncomePage() {
   const { incomes } = useAppSelector((state) => state.userReducer);
   const [isAddIncomeFormOpen, setIsAddIncomeFormOpen] = React.useState(false);
 
+  const closeIncomeFormCB = (value: boolean) => {
+    setIsAddIncomeFormOpen(value);
+  };
+
   return (
     <Layout>
       <Seo
         templateTitle='Components'
         description='Pre-built components with awesome default'
       />
-      {/* <IncomePopupPage /> */}
-      {/* <motion.div
-        variants={incomeAnimation}
-        animate={isAddIncomeFormOpen ? 'show' : 'hide'}
-        transition={toastTransition}
-        className='shadow-primary-200 absolute left-[40%] top-[-300px] w-fit  rounded-b-lg bg-black px-6 py-4 text-white shadow-sm'
-      >
-        <AddIncome />
-      </motion.div> */}
 
-      <main className='bg-dark flex h-full w-full justify-between gap-10 pl-10 text-white'>
+      <main className='bg-dark flex h-full w-full justify-between gap-10 pl-10 text-white '>
         <motion.div
           initial='hidden'
           whileInView='visible'
           variants={mediumSecondShowAnimation}
-          className='h-full w-[65%] rounded-2xl bg-black p-6'
+          className='flex h-full w-[65%] flex-col rounded-2xl bg-black p-6'
         >
           <h2>Incomes</h2>
           <div className='my-4 flex justify-between'>
@@ -49,37 +45,42 @@ export default function IncomePage() {
               Add income
             </Button>
           </div>
-          <table
-            align='left'
-            className='mb-4 w-full overflow-hidden rounded-lg text-left'
-          >
-            <thead className='bg-dark'>
-              <tr>
-                <th className='p-6'>Title</th>
-                <th>currency</th>
-                <th>Income date</th>
-                <th>Ammount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {incomes.map((el) => (
-                <tr className='even:bg-subDark' key={el.jobTitle}>
-                  <td className='p-6 '>{el.jobTitle}</td>
-                  <td>{el.currency}</td>
-                  <td>{el.incomeDate}</td>
-                  <td>{el.ammount}</td>
+
+          <div className='h-[90%] max-h-[700px] overflow-y-auto overflow-x-hidden'>
+            <table
+              align='left'
+              className='relative mb-4 w-full overflow-y-auto rounded-lg text-left'
+            >
+              <thead className='bg-dark sticky top-0 z-40'>
+                <tr className=''>
+                  <th className='p-6'>Title</th>
+                  <th>currency</th>
+                  <th>Income date</th>
+                  <th>Ammount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <motion.div
-            variants={incomeAnimation}
-            animate={isAddIncomeFormOpen ? 'show' : 'hide'}
-            transition={incomeTransition}
-            className='rounded-b-lg text-white'
-          >
-            <AddIncome />
-          </motion.div>
+              </thead>
+
+              <tbody>
+                <tr className='h-1'></tr>
+                <tr>
+                  <td colSpan={4}>
+                    <motion.div
+                      variants={incomeAnimation}
+                      animate={isAddIncomeFormOpen ? 'show' : 'hide'}
+                      transition={incomeTransition}
+                      className='rounded-b-lg text-white'
+                    >
+                      <AddIncome closeForm={closeIncomeFormCB} />
+                    </motion.div>
+                  </td>
+                </tr>
+                <tr className='h-1'></tr>
+                {incomes.map((el) => (
+                  <IncomeRow key={el.id + el.jobTitle} obj={el} />
+                ))}
+              </tbody>
+            </table>
+          </div>
         </motion.div>
         <motion.div
           initial='hidden'

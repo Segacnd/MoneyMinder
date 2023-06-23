@@ -30,6 +30,13 @@ export const nameSchema = yup
   .required(requiredError)
   .matches(stringRules.latinPattern, 'Should contain latin letters');
 
+export const requiredField = yup.string().required(requiredError);
+
+export const numberField = yup
+  .string()
+  .required(requiredError)
+  .matches(stringRules.numberPattern, 'A number');
+
 export const passwordErrorsTemplate = [
   'Latin letter',
   'A capital(uppercase) letter',

@@ -1,13 +1,9 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
 
+import CashSetup from '@/components/cashSetup';
 import ChangeUserInfo from '@/components/forms/changeUserInfo';
-import { Input } from '@/components/inputs/Input';
-import { Select } from '@/components/inputs/Select';
 import Layout from '@/components/layout/Layout';
-import SaveEachMonth from '@/components/saveEachMonth';
-import SelectCurrency from '@/components/selectCurrency';
 import Seo from '@/components/Seo';
 
 import {
@@ -16,7 +12,6 @@ import {
   mediumShowAnimation,
 } from '@/animations/animations';
 import CashIcon from '@/assets/icons/cash';
-import { currencySymbolsList } from '@/constants';
 /**
  * SVGR Support
  * Caveat: No React Props Type.
@@ -28,23 +23,7 @@ import { useAppSelector } from '@/redux/store';
 // !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
 
 export default function HomePage() {
-  const { register, watch, handleSubmit } = useForm<FieldValues>({
-    mode: 'onChange',
-    criteriaMode: 'all',
-  });
   const { currency } = useAppSelector((state) => state.userReducer);
-
-  const handleSave = (data: FieldValues) => {
-    data;
-  };
-
-  const testValue = watch('test');
-
-  React.useEffect(() => {
-    if (testValue?.length) {
-      handleSave(testValue);
-    }
-  }, [testValue]);
 
   return (
     <Layout>
@@ -54,23 +33,7 @@ export default function HomePage() {
       <section className=' flex h-full gap-10 pl-10'>
         <ChangeUserInfo />
         <div className='flex h-full w-full flex-col gap-10'>
-          <motion.div
-            initial='hidden'
-            whileInView='visible'
-            variants={baseShowAnimation}
-            className='flex h-[120px] w-full items-center gap-4 rounded-2xl bg-black p-6 text-white'
-          >
-            <SelectCurrency />
-            <div className='w-full'>
-              <Input
-                name='dailyLimit'
-                placeholder='Daily limit:'
-                type='text'
-                isClear={false}
-              />
-            </div>
-            <SaveEachMonth />
-          </motion.div>
+          <CashSetup />
           <div className='flex gap-10'>
             <motion.div
               initial='hidden'
@@ -106,17 +69,7 @@ export default function HomePage() {
             whileInView='visible'
             variants={baseShowAnimation}
             className='h-full w-full rounded-2xl bg-black p-4'
-          >
-            <form onSubmit={handleSubmit(handleSave)}>
-              <Select
-                list={currencySymbolsList}
-                placeholder='Base currency:'
-                name='testik'
-                register={register}
-              />
-              <input type='submit' value='adsasd' />
-            </form>
-          </motion.div>
+          ></motion.div>
         </div>
       </section>
     </Layout>

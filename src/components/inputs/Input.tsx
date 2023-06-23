@@ -12,6 +12,7 @@ export interface IInputProps {
   errors?: string[];
   errorsTemplate?: string[];
   isClear: boolean;
+  autofocus?: boolean;
   onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
   isInputActiveCB?: (value: boolean) => void;
@@ -32,6 +33,7 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       placeholder,
       isClear,
       isInputActiveCB,
+      autofocus,
       ...otherprops
     } = props;
 
@@ -94,11 +96,12 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
             onBlur={handleOnBlur}
             id={name}
             name={name}
+            autoFocus={autofocus}
             {...otherprops}
           />
           <label
             htmlFor={name}
-            className={`text-placeGray absolute duration-300 ease-in peer-focus:left-[2px] peer-focus:top-[-8px] peer-focus:text-xs ${placeholderState} `}
+            className={`text-placeGray absolute duration-300 ease-in peer-focus:left-[2px] peer-focus:top-[-10px] peer-focus:text-[0.75rem] ${placeholderState} whitespace-nowrap `}
           >
             {placeholder}
           </label>

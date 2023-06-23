@@ -40,7 +40,7 @@ export default function ChangeUserInfo() {
       initial='hidden'
       whileInView='visible'
       variants={mediumSecondShowAnimation}
-      className='flex h-full w-2/5 flex-col items-center gap-1 rounded-2xl bg-black px-10 py-12 text-white'
+      className='flex h-full w-2/5 flex-col items-center gap-1 rounded-2xl bg-black px-10 py-12 text-white max-lg:hidden'
     >
       <div className='relative'>
         <Image
